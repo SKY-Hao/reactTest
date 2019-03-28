@@ -1,55 +1,21 @@
-import React, { Component } from 'react';
+import  React from 'react';
 
-class TodoList extends Component {
+class  ToIteam extends React.Component {
 
-		constructor(props) {
-			super(props);
-			this.state = {
-				list: [],
-				inputValue:''
-			}
-		};
-        handleBtnClick(){
-            this.setState({
-				list: [...this.state.list,this.state.inputValue],
-				inputValue : ""
-            })
-        }
-		handleInputChange(e){
-				this.setState({
-					inputValue : e.target.value
-				})
-		}
-
-		/**
-		 * 删除
-		 * @returns {XML}
-		 */
-		handleDelete(index){
-			const  list = [...this.state.list];
-			list.splice(index,1);
-			this.setState({
-				list: list
-			})
-		}
-
-        render(){
-            return (
-				<div>
-					<div>
-						<input value={this.state.inputValue} onChange={this.handleInputChange.bind(this)}/>
-						<button onClick={this.handleBtnClick.bind(this)}>add</button>
-					</div>
-					<ul>
-                        {
-                            this.state.list.map((item,index) => {
-                                return <li key={index} onClick={this.handleDelete.bind(this)}>{item}</li>
-                            })
-                        }
-					</ul>
-				</div>
-            );
-        }
-
+	//子组件如果想和父组件通信，子组件需要调用父组件传递过来的方法
+    handleDelete(){
+    	this.props.handleDeleteToItem(this.props.index);
+	}
+    /**
+	 * 接受TodoList界面传过来的输入框中的值
+     * @returns {XML}
+     */
+    render() {
+        return (
+			<div onClick={this.handleDelete.bind(this)}>
+				{this.props.content}
+			</div>
+        )
+    }
 }
-export default TodoList;
+export default ToIteam
